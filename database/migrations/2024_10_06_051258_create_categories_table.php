@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('parent_id')
+          $table->id();
+          $table->foreignId('parent_id')
             ->nullable()
             ->constrained('categories','id')
             ->nullOnDelete();
@@ -21,4 +21,19 @@ return new class extends Migration
           $table->string('slug')->unique();
           $table->text('description')->nullable();
           $table->string('image')->nullable();
-          $table->enum('status',['activ
+          $table->enum('status',['active','archived']);
+
+            
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('categories');
+    }
+};
